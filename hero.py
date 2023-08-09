@@ -1,100 +1,94 @@
 class SuperHero:
     people = 'people'
-
     def __init__(self, name, nickname, superpower, health_points, catchphrase):
         self.name = name
         self.nickname = nickname
         self.superpower = superpower
         self.health_points = health_points
-        self.cathphrase = catchphrase
-
+        self.catchphrase = catchphrase
+    def display_name(self):
+        return f"Hero's name: {self.name}"
     def double_health(self):
         self.health_points *= 2
-
     def __str__(self):
-        return (f'Nickname:{self.nickname} \n'
-                f'Superpower:{self.superpower} \n'
-                f'healthness:{self.health_points}')
-
+        return f"Nickname: {self.nickname}\nSuperpower: {self.superpower}\nHealth: {self.health_points}"
     def __len__(self):
-        return len(self.cathphrase)
-
-    def print_name(self):
-        return f'name: {self.name}'
-
-
-person = SuperHero('Tim', 'menacing', 'strength', 100, "Evil won't win")
-
-print(str(person))
-print(person.print_name())
-print(f'catchphrase: {len(person)}')
-person.double_health()
-print(f'double_health: {person.health_points}')
-
-
-class Airhero(SuperHero):
-    people = 'people'
-
-    def __init__(self, name, nickname, superpower, catchphrase, health_points, damage):
-        super().__init__(name, nickname, superpower, catchphrase, health_points)
+        return len(self.catchphrase)
+hero = SuperHero('Tim', 'menacing', 'strength', 100, "Evil won't win")
+print(hero.display_name())
+print(f"Health points before: {hero.health_points}")
+hero.double_health()
+print(f"Health points after doubling: {hero.health_points}")
+print(str(hero))
+print(f"Catchphrase length: {len(hero)}")
+class AirHero(SuperHero):
+    def __init__(self, name, nickname, superpower, health_points, catchphrase, damage, fly=False):
+        super().__init__(name, nickname, superpower, health_points, catchphrase)
         self.damage = damage
-        self.fly = False
+        self.fly = fly
+    def Health_is_double(self):
+        SuperHero.Health_is_double(self)
+        self.health_points **= 2
+        self.fly=True
+    def fly_phrase(self):
+        return 'fly in the True_phrase'
 
-    def multiply_hp(self):
-         SuperHero.multiply_hp(self)
-         self.health_points **= 2
-         self.fly = True
-
-    def fly_true_phrase(self):
-        if self.fly:
-          print(f'{self.name}: fly in the sky')
-
-
-person1 = Airhero('josh', 'fast', 'levitating', 'none', 100, 200)
-print(person1)
-person1.fly_true_phrase()
-
-class Earthhero(SuperHero):
-    people = 'people'
-
-    def __init__(self, name, nickname, superpower, catchphrase, health_points, damage):
-        super().__init__(name, nickname, superpower, catchphrase, health_points)
+class SpaceHero(SuperHero):
+    def __init__(self, name, nickname, superpower, health_points, catchphrase, damage, fly=False):
+        super().__init__(name, nickname, superpower, health_points, catchphrase)
         self.damage = damage
-        self.fly = False
-
-    def multiply_hp(self):
-        self.health_points *= 2
-        self.fly = True
-
-    def fly_true_phrase(self):
-        if self.fly:
-            print(f'{self.name}: fly in the dreams')
+        self.fly = fly
+    def Health_is_double(self):
+        SuperHero.double_health(self)
+        self.health_points **= 2
+        self.fly=True
+    def fly_phrase(self):
+        return "Fly in the True_phrase: Yes"
 
 
-person2 = Earthhero('Rick', 'kind', 'fast', 'none', 150, 100)
+air_hero=AirHero('josh', 'fast', 'levitating', 120, 'none', 200)
+space_hero=SpaceHero(name='Jacob',nickname='fearless',superpower='magic',
+                     health_points=100, catchphrase='none',damage=70)
+class Villain(SpaceHero):
+    people = 'monster'
 
-person2.multiply_hp()
-person2.fly_true_phrase()
+    def gen_x(self):...
 
+    def crit(self, damage):
+        return damage ** 2
 
-class Villain(Airhero):
-    def __init__(self, name, nickname, superpower, catchphrase, health_points, damage):
-        super().__init__(name, nickname, superpower, catchphrase, health_points, damage)
-        self.people = 'monster'
+villain=Villain('liam', 'terrifying', 'dark magic',  350, 'none',damage=350)
 
-    def gen_x(self): ...
+print('\n')
+print(air_hero)
+print(f'HealthPoints before: {air_hero.health_points}')
+air_hero.double_health()
+print(f'Health points after doubling: {air_hero.health_points}')
+print(str(air_hero))
+print(f'Catchphrase length: {len(air_hero)}')
+print(f'Damage: {air_hero.damage}')
+print(f'Fly: {air_hero.fly}')
 
-    def crit(self,damage):
-        return damage ** self.damage
+print('\n')
+print(space_hero)
+print(f'HealthPoints before: {space_hero.health_points}')
+space_hero.double_health()
+print(f'Health points after doubling: {space_hero.health_points}')
+print(str(space_hero))
+print(f'Catchphrase length: {len(space_hero)}')
+print(f'Damage: {space_hero.damage}')
+print(f'Fly: {space_hero.fly}')
 
+print('\n')
+print(villain)
+print(f'HealthPoints before: {villain.health_points}')
+villain.Health_is_double()
+print(f'Health points after doubling: {villain.health_points}')
+print(str(villain))
+print(f'Catchphrase length: {len(villain)}')
+print(f'Damage: {villain.damage}')
+print(f'Fly: {villain.fly}')
 
-villain = Villain('liam', 'terrifying', 'dark magic', 'none', 350, 350)
-
-villain.fly_true_phrase()
-villain.multiply_hp()
-
-another_hero=Airhero
-villain_damage = 8
-result = villain.crit(villain_damage)
-
-print(result)
+hero_damage = 50
+hero_crit_result = villain.crit(hero_damage)
+print(f'Critical damage for hero: {hero_crit_result}')
